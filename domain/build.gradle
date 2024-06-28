@@ -1,0 +1,26 @@
+plugins {
+    id 'java'
+}
+
+
+group = 'com.sistran.fastclaims.domain'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: '5.12.0'
+    testImplementation group: 'org.mockito', name: 'mockito-junit-jupiter', version: '5.12.0'
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+test {
+    useJUnitPlatform()
+}

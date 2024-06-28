@@ -1,0 +1,51 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.springframework.boot' version '3.3.1'
+    id 'io.spring.dependency-management' version '1.1.5'
+}
+
+applicationDefaultJvmArgs = ["-Dfile.encoding=UTF-8"]
+
+group = 'com.sistran.fastclaims.infrastructure'
+version = '1.0-SNAPSHOT'
+
+
+bootJar {
+    archiveFileName = 'application.jar'
+    destinationDirectory.set(file("${rootProject.buildDir}/libs"))
+}
+
+java {
+    sourceCompatibility = '21'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '7.3.3'
+}
+
+tasks.register("prepareKotlinBuildScriptModel") {}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation(project(":domain"))
+    implementation(project(":application"))
+
+    implementation group: 'io.vavr', name: 'vavr', version: '0.10.4'
+
+    implementation('org.springframework.boot:spring-boot-starter-web') {
+        exclude module: 'spring-boot-starter-tomcat'
+    }
+    implementation 'org.springframework.boot:spring-boot-starter-undertow'
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb:3.2.5'
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.3.0'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+test {
+    useJUnitPlatform()
+}
